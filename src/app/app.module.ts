@@ -30,6 +30,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 registerLocaleData(hu);
 import { LogoutOutline } from '@ant-design/icons-angular/icons';
 import { RegistrationComponent } from './pages/Registration/registration/registration.component';
+import { CountryComponent } from './pages/Country/country/country.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 const icons: IconDefinition[] = [ LogoutOutline];
 
 @NgModule({
@@ -41,7 +43,8 @@ const icons: IconDefinition[] = [ LogoutOutline];
     ShowtimesComponent,
     CinemaComponent,
     BookingComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    CountryComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +58,7 @@ const icons: IconDefinition[] = [ LogoutOutline];
     NzTableModule,
     NzDividerModule,
     NzIconModule.forRoot(icons),
+    NgbModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: hu_HU },UserService],
   bootstrap: [AppComponent]
