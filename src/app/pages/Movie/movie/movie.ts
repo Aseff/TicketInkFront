@@ -1,10 +1,11 @@
 export class Movie {
     id: number;
+    imageURL:string;
     movieName: string;
     movieDescription: string;
     language:string;
     releaseDate: string;
     movieDuration: string;
-    country :string[];
-    genre:string[];
+    genreName :string;
+    countryName:string;
 }

@@ -1,0 +1,194 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+<div class="container" id="main-container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body col-12 col-md-10 col-lg-8">
+                    <h5 class="card-title text-uppercase mb-0">Manage Shows</h5>
+                    <br>
+
+                    <form id="search-form">
+                        <div class="card-body row ">
+
+                            <!-- <div class="col-8 col-md-10 col-lg-8 p-4">
+                                <input id="search" (ngModelChange)="searchShow(key.value)" #key="ngModel" ngModel class="form-control" name="search" type="search" placeholder="Search...">
+                            </div> -->
+
+                            <div class="col-6 col-md-5 col-lg-4 p-4">
+
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addShowModal">
+                                Add Show
+                              </button>
+                            </div>
+                            <!-- <a class="nav-link" (click)="onOpenModal(, 'add')">Add Movie <span class="sr-only">(current)</span></a> -->
+
+
+                        </div>
+                    </form>
+
+
+                </div>
+                <div class="table-responsive ">
+                    <table class="table no-wrap user-table mb-0 ">
+                        <thead>
+                            <tr>
+                                <th scope="col " class="border-0 text-uppercase font-medium pl-4 ">#</th>
+                                <th scope="col " class="border-0 text-uppercase font-medium ">Show Name</th>
+                                <th scope="col " class="border-0 text-uppercase font-medium ">Show date</th>
+                                <th scope="col " class="border-0 text-uppercase font-medium ">Starting time</th>
+                                <th scope="col " class="border-0 text-uppercase font-medium ">Ending time</th>
+
+                            </tr>
+                        </thead>
+                        <br>
+                        <tbody>
+                            <tr *ngFor="let show of shows ">
+
+                                <td class="pl-4 ">{{ show.showId }}</td>
+
+                                <td>
+                                    <h6 class="font-medium mb-0 ">{{ show.show_date }}</h6>
+
+                                </td>
+                                <td>
+                                    <h6 class="font-medium mb-0 ">{{ show.start_time }}</h6><br>
+
+                                </td>
+                                <td>
+                                    <h6 class="font-medium mb-0 ">{{ show.end_time }}</h6><br>
+
+                                </td>
+
+
+
+                                <td>
+                                    <button type="button" (click)="onOpenModal(show,'edit')" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2 "><i class="fa fa-edit "></i> </button>
+                                    <button type="button" (click)="onOpenModal(show,'delete')" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2 "><i class="fa fa-trash "></i> </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Employee Show -->
+
+<div class="modal fade" id="addShowModal" tabindex="-1" role="dialog" aria-labelledby="addShowModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addShowModalLabel">Add Show</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form #addForm="ngForm" (ngSubmit)="onAddShow(addForm)">
+
+                    <div class="form-group">
+                        <label for="name">Show Date</label>
+                        <input type="text" ngModel name="show_date" class="form-control" id="name" placeholder="Show Date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Show Starting Date</label>
+                        <input type="text" ngModel name="start_time" class="form-control" id="address" placeholder="Show Starting Date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="language">Show Ending Date</label>
+                        <input type="number" ngModel name="end_time" class="form-control" id="totalSeats" placeholder="Show Ending Date" required>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="language">Movie</label>
+                        <input type="number" ngModel name="movie_id" class="form-control" id="totalSeats" placeholder="Movie" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="language">Cinema</label>
+                        <input type="number" ngModel name="cinema_id" class="form-control" id="totalSeats" placeholder="Cinema" required>
+                    </div> -->
+
+
+                    <div class="modal-footer">
+                        <button type="button" id="add-show-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteShowModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModelLabel">Delete Show</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete show {{deletedShow?.show_date}} </p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button (click)="onDeleteShow(deletedShow.showId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editShowModal" tabindex="-1" role="dialog" aria-labelledby="showEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateShowModalLabel">Edit Show </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+            </div>
+            <div class="modal-body">
+                <form #editForm="ngForm" id="Update">
+                    <div class="form-group">
+                        <label for="showName">Show Date</label>
+                        <input type="text" ngModel="{{updateShow?.show_date}}" name="imageUrl" class="form-control" id="imageURL" aria-describedby="emailHelp" placeholder="Show Date">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Show Starting Time</label>
+                        <input type="text" ngModel="{{updateShow?.start_time}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Show Starting Time">
+                    </div>
+                    <div class="form-group">
+                        <label for="totalSeats">Show Ending Time</label>
+                        <input type="text" ngModel="{{updateShow?.end_time}}" name="address" class="form-control" id="address" aria-describedby="emailHelp" placeholder="Show Ending Time">
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="language">Movie</label>
+                        <input type="text" ngModel="{{updateShow?.movie_id}}" name="totalSeats" class="form-control" id="totalSeats" aria-describedby="emailHelp" placeholder="Movie">
+                    </div>
+                    <div class="form-group">
+                        <label for="language">Cinema</label>
+                        <input type="text" ngModel="{{updateShow?.cinema_id}}" name="totalSeats" class="form-control" id="totalSeats" aria-describedby="emailHelp" placeholder="Cinema">
+                    </div> -->
+
+
+
+                    <input type="hidden" ngModel="{{updateShow?.showId}}" name="id" class="form-control" id="id" placeholder="Id">
+
+
+
+                    <div class="modal-footer">
+                        <button type="button" id="closeButton" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                        <button (click)="onUpdateShow(editForm.value)" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

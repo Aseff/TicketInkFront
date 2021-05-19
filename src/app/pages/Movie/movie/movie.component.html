@@ -13,16 +13,18 @@
                     <form id="search-form">
                         <div class="card-body row ">
 
-                            <div class="col-lg-8 col-md-9 col-sm-12 p-0">
+                            <div class="col-8 col-md-10 col-lg-8 p-4">
                                 <input id="search" (ngModelChange)="searchMovie(key.value)" #key="ngModel" ngModel class="form-control" name="search" type="search" placeholder="Search...">
                             </div>
 
+                            <div class="col-6 col-md-5 col-lg-4 p-4">
 
-                            <!-- <div class="col-lg-1 col-md-3 col-sm-12 p-0">
-                                <button type="submit" class="btn btn-base">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                                </button>
-                            </div> -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMovieModal">
+                                Add Movie
+                              </button>
+                            </div>
+                            <!-- <a class="nav-link" (click)="onOpenModal(movies, 'add')">Add Movie <span class="sr-only">(current)</span></a> -->
+
 
                         </div>
                     </form>
@@ -34,6 +36,7 @@
                         <thead>
                             <tr>
                                 <th scope="col " class="border-0 text-uppercase font-medium pl-4 ">#</th>
+                                <th scope="col " class="border-0 text-uppercase font-medium pl-4 ">Wallpaper</th>
                                 <th scope="col " class="border-0 text-uppercase font-medium ">Movie Name</th>
                                 <th scope="col " class="border-0 text-uppercase font-medium ">Description</th>
                                 <th scope="col " class="border-0 text-uppercase font-medium ">Language</th>
@@ -49,6 +52,10 @@
                             <tr *ngFor="let movie of movies ">
 
                                 <td class="pl-4 ">{{ movie.id }}</td>
+                                <td>
+                                    <a href=""><img src="{{movie?.imageURL}}" alt="" class="img-fluid" /></a>
+
+                                </td>
                                 <td>
                                     <h6 class="font-medium mb-0 ">{{ movie.movieName }}</h6>
 
@@ -70,11 +77,11 @@
 
                                 </td>
                                 <td>
-                                    <h6 class="font-medium mb-0 ">{{ movie.country }}</h6><br>
+                                    <h6 class="font-medium mb-0 ">{{ movie.countryName }}</h6><br>
 
                                 </td>
                                 <td>
-                                    <h6 class="font-medium mb-0 ">{{ movie.genre}}</h6><br>
+                                    <h6 class="font-medium mb-0 ">{{ movie.genreName}}</h6><br>
 
                                 </td>
 
@@ -86,6 +93,61 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Add Employee Modal -->
+<div class="modal fade" id="addMovieModal" tabindex="-1" role="dialog" aria-labelledby="addMovieModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addMovieModalLabel">Add Movie</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form #addForm="ngForm" (ngSubmit)="onAddMovie(addForm)">
+                    <div class="form-group">
+                        <label for="phone">Image URL</label>
+                        <input type="text" ngModel name="imageURL" class="form-control" id="imageURL" placeholder="Image URL" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Movie Name</label>
+                        <input type="text" ngModel name="movieName" class="form-control" id="movieName" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Movie Description</label>
+                        <input type="text" ngModel name="movieDescription" class="form-control" id="movieDescription" placeholder="Movie Description" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="language">Language</label>
+                        <input type="text" ngModel name="language" class="form-control" id="language" placeholder="Language" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="releaseDate">Release Date</label>
+                        <input type="text" ngModel name="releaseDate" class="form-control" id="releaseDate" placeholder="Release Date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="movieDuration">Movie Duration</label>
+                        <input type="text" ngModel name="movieDuration" class="form-control" id="movieDuration" placeholder="Movie Duration" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="countryName">Country</label>
+                        <input type="text" ngModel name="countryName" class="form-control" id="countryName" placeholder="Country Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="genreName">Genre</label>
+                        <input type="text" ngModel name="genreName" class="form-control" id="genreName" placeholder="Genre Name" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="add-movie-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -115,17 +177,21 @@
 
 
 <!-- Edit Modal -->
-<div class="modal fade" id="editMovieModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+<div class="modal fade" id="editMovieModal" tabindex="-1" role="dialog" aria-labelledby="movieEditModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Movie </h5>
+                <h5 class="modal-title" id="updateMovieModalLabel">Edit Movie </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">&times;</span>
              </button>
             </div>
             <div class="modal-body">
                 <form #editForm="ngForm" id="Update">
+                    <div class="form-group">
+                        <label for="movieName">Movie ImageURL</label>
+                        <input type="text" ngModel="{{updateMovie?.imageURL}}" name="imageURL" class="form-control" id="imageURL" aria-describedby="emailHelp" placeholder="Movie Image">
+                    </div>
                     <div class="form-group">
                         <label for="movieName">Movie Name</label>
                         <input type="text" ngModel="{{updateMovie?.movieName}}" name="movieName" class="form-control" id="movieName" aria-describedby="emailHelp" placeholder="Movie Name">
@@ -147,12 +213,12 @@
                         <input type="text" ngModel="{{updateMovie?.movieDuration}}" name="movieDuration" class="form-control" id="movieDuration" aria-describedby="emailHelp" placeholder="Duration">
                     </div>
                     <div class="form-group">
-                        <label for="countryId">Country</label>
-                        <input type="text" ngModel="{{updateMovie?.country}}" name="country" class="form-control" id="country" aria-describedby="emailHelp" placeholder="Country">
+                        <label for="countryName">Country</label>
+                        <input type="text" ngModel="{{updateMovie?.countryName}}" name="countryName" class="form-control" id="countryName" aria-describedby="emailHelp" placeholder="Country">
                     </div>
                     <div class="form-group">
-                        <label for="genreId">Genre</label>
-                        <input type="text" ngModel="{{updateMovie?.genre}}" name="genre" class="form-control" id="genre" aria-describedby="emailHelp" placeholder="Genre">
+                        <label for="genreName">Genre</label>
+                        <input type="text" ngModel="{{updateMovie?.genreName}}" name="genreName" class="form-control" id="genreName" aria-describedby="emailHelp" placeholder="Genre">
                     </div>
 
 

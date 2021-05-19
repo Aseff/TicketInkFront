@@ -2,6 +2,8 @@ import { MovieService } from './movie.service';
 import { Component, OnInit } from '@angular/core';
 import {Movie} from './movie';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
+
 @Component({
   selector: 'app-movie',
   templateUrl: './movie.component.html',
@@ -13,6 +15,7 @@ export class MovieComponent implements OnInit {
   public updateMovie:Movie;
   public deletedMovie:Movie;
 
+
   constructor(private movieService : MovieService ) { }
 
   ngOnInit(): void {
@@ -21,10 +24,26 @@ export class MovieComponent implements OnInit {
   public getMovies(): void{
     this.movieService.getMovies().subscribe((response:Movie[]) => {
          this.movies=response;
+        
+
      },
      (error: HttpErrorResponse)=>{
        alert(error.message);
      }
+    );
+  }
+  public onAddMovie(addForm: NgForm): void {
+    document.getElementById('add-movie-form')?.click()
+    this.movieService.addMovie(addForm.value).subscribe(
+      (response: Movie) => {
+        console.log(response);
+        this.getMovies();
+        addForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        addForm.reset();
+      }
     );
   }
 
@@ -34,6 +53,9 @@ export class MovieComponent implements OnInit {
     button.type='button';
     button.style.display='none';
     button.setAttribute('data-toggle','modal');
+    if (mode === 'add') {
+      button.setAttribute('data-target', '#addMovieModal');
+    }
     if(mode=== 'delete'){
       this.deletedMovie=movie;
       button.setAttribute('data-target','#deleteMovieModal');

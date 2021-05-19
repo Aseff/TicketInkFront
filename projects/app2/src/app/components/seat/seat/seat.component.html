@@ -1,0 +1,57 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<div class="container">
+    <main class="innerContainer">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <p class="card-text">
+                    <i class="fas fa-heart float-right"></i>
+                    <i class="far fa-heart float-right"></i>
+                </p>
+                <p class="card-text"><b>Movie Name:</b> {{ movieName }}</p>
+
+                <p class="card-text"><b>Cinema Name:</b> {{ cinemaName }}</p>
+
+                <p class="card-text"><b>Show Date:</b> {{ showdate }}</p>
+
+            </div>
+        </div>
+
+        <!-- <app-showtimes [movie]="movie" [showAllTimes]="showAllTimes[movie.id]" [filterDate]="filterDate"></app-showtimes> -->
+
+        <!-- Showing a static legend bar -->
+        <div class="legend">
+            <span class="glyphicon glyphicon-stop freeSeat"></span> FREE
+            <span class="glyphicon glyphicon-ban-circle reservedSeat padding-left"></span> TAKEN
+            <span class="glyphicon glyphicon-ok-sign selectedSeat padding-left"></span> SELECTED
+        </div>
+
+        <p class="font14 marginTop5">SCREEN THIS WAY</p>
+        <div class="screen"></div>
+
+        Generate the seating grid
+        <div *ngFor="let row of rows">
+            <span class="seat" *ngFor="let col of cols" (click)="seatClicked(row + col)" [ngSwitch]="getStatus(row + col)">
+            <span *ngSwitchCase="'selected'" class="glyphicon glyphicon-ok-sign selectedSeat"></span>
+            <span *ngSwitchCase="'reserved'" class="glyphicon glyphicon-ban-circle reservedSeat"></span>
+            <span *ngSwitchDefault class="glyphicon glyphicon-stop freeSeat"></span>
+            </span>
+        </div>
+
+        Structural directive - only visible on selection
+        <div *ngIf="selected.length > 0" class="font14 marginTB10">
+            <div class="wordWrap">SEATS RESERVED : {{selected.length}} <span class="count">({{selected}})</span></div>
+            <div>PRICE : {{ticketPrice}} * {{selected.length}} = {{currency}}.{{ticketPrice*selected.length}} </div>
+            <div>CONVENIENCE FEE : {{currency}}.{{convFee}}</div>
+            <div>TOTAL : {{currency}}.{{ticketPrice * selected.length + convFee}}</div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="buttonBar marginTop5">
+            <button (click)="clearSelected()" [disabled]="selected.length === 0" class="btn btn-default btn-sm">Clear</button>
+            <button (click)="showSelected()" routerLink="/ticket" [disabled]="selected.length === 0" class="btn btn-success btn-sm">Buy Tickets</button>
+        </div>
+    </main>
+</div>

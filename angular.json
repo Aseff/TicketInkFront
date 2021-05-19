@@ -37,7 +37,9 @@
                             "src/theme.less",
                             "src/styles.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+
+                        ]
                     },
                     "configurations": {
                         "production": {
@@ -152,10 +154,14 @@
                             "projects/app2/src/assets"
                         ],
                         "styles": [
-                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
-                            "projects/app2/src/styles.css"
+                            "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "./projects/app2/src/styles.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+
+
+
+                        ]
                     },
                     "configurations": {
                         "production": {

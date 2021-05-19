@@ -1,0 +1,63 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Ensures optimal rendering on mobile devices. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Optimal Internet Explorer compatibility -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+</head>
+
+<body>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                <th scope="col">Movie Name</th>
+                <th scope="col">Cinema</th>
+                <th scope="col">Show date</th>
+                <th scope="col">Seat number</th>
+                <th scope="col">Price</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+                <td>{{ movieName }}</td>
+                <td>{{ cinemaName }}</td>
+                <td>{{ showdate }}</td>
+                <td>{{ seatNumber }}</td>
+                <td>{{ price }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+
+    <h3 style="text-align: center; margin-top: 100px;">Payment with Paypal</h3>
+    <hr>
+
+    <!-- PayPal Logo -->
+    <!-- <table border="0" cellpadding="10" cellspacing="0" align="center">
+        <tr>
+            <td align="center"></td>
+        </tr>
+        <tr>
+            <td align="center">
+                <a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg" border="0" alt="PayPal Logo" /></a>
+            </td>
+        </tr> -->
+    <!-- </table> -->
+    <!-- PayPal Logo -->
+    <!-- <script src="https://www.paypal.com/sdk/js?client-id=AUss2K8almov9rOKNyad4ZenDqctiLde2yJO7gJ8xq3HeGsLBoxrkOq8mmwrwW49sQRsyMaPWLs52joI">
+        // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
+    </script> -->
+
+    <div style="margin-left: 150px;" #paypalRef></div>
+
+    <form (ngSubmit)="onSubmit()" #myForm="ngForm">
+        <input name="fileName" type="hidden" ngModel>
+        <button class="btn btn-lg btn-outline-primary " type="submit ">Get Your Ticket</button>
+    </form>
+
+
+</body>

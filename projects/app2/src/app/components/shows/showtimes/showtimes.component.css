@@ -1,0 +1,40 @@
+.showtimes {
+    border-top: 1px solid #1e1e1e;
+    padding-top: 24px;
+    margin-top: 24px;
+}
+
+.showtime-date {
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.showtime-section ul {
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+.showtime-section li {
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.showtime-section-detail a {
+    display: inline-block;
+    padding: 6px 20px;
+    border: 1px solid #333;
+}
+
+.showtime-section-detail a:hover {
+    border-color: #808080;
+}
+
+.showtime-section-detail time {
+    display: block;
+}
+
+.showtime-section-detail span {
+    color: #f37735;
+    font-size: 14px;
+}

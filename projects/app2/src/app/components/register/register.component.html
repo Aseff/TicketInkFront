@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="guest-form-card card">
+
+            <div class="card-header text-center">
+                <h2>Register Here</h2>
+            </div>
+
+            <div class="card-body">
+                <form #registerForm="ngForm" (ngSubmit)="register()">
+                    <div class="form-group">
+                        <label for="firstname">First name</label>
+                        <input type="text" name="firstname" class="form-control" placeholder="Enter firstname" [class.is-invalid]="firstname.touched && firstname.invalid " #firstname="ngModel" [(ngModel)]="user.firstname" required />
+                        <small class="text-danger" [class.d-none]="firstname.valid || firstname.untouched">First name name can't be blank.</small>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="lastname">Last name</label>
+                        <input type="text" name="lastname" class="form-control" placeholder="Enter lastname" [class.is-invalid]="lastname.touched && lastname.invalid " #lastname="ngModel" [(ngModel)]="user.lastname" required />
+                        <small class="text-danger" [class.d-none]="lastname.valid || lastname.untouched">Last name can't be blank.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" class="form-control" placeholder="Enter email" [class.is-invalid]="email.touched && email.invalid " #email="ngModel" [(ngModel)]="user.email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required />
+
+                        <div *ngIf="email.errors && (email.invalid && email.touched)">
+                            <small class="text-danger" *ngIf="email.errors.required">Email is required field</small>
+                            <small class="text-danger" *ngIf="email.errors.pattern">Enter the valid email</small>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="text" name="password" class="form-control" [class.is-invalid]="password.touched && password.invalid " #password="ngModel" [(ngModel)]="user.password" placeholder="Enter password" required />
+                        <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password can't be blank.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="text" name="confirmPassword" class="form-control" [class.is-invalid]="confirmPassword.touched && confirmPassword.invalid " #confirmPassword="ngModel" (ngModel)="user.password" placeholder="Enter password again" required />
+                        <small class="text-danger" [class.d-none]="(confirmPassword.value == password.value )  || confirmPassword.untouched">Password and Confirmed Password must match.</small>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" type="submit" [disabled]="registerForm.invalid">Register</button>
+                </form>
+                <small [routerLink]="['/login']">Existing user ? Login here</small>
+
+            </div>
+        </div>
+    </div>
+</div>
